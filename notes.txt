@@ -1,0 +1,61 @@
+CSS 
+- querySelector()  returns the first element that matches a CSS selector
+- uerySelectorAll() returns all elements that match a CSS selector 
+- getElementById  returns an element with a specified value. 
+
+JQUERY 
+- $(selector).get(0) returns the first element that matches a CSS selector
+- $(selector) Selects all with the class 
+- $('#selector') returns an element with a specified value. 
+
+https://api.jquery.com/eq/
+https://api.jquery.com/toggleClass/
+https://api.jquery.com/text/
+
+
+logic 
+
+- when clicking next step : 
+    the next function =
+        checks the progress counter vs the tabs count
+        sets the currentStep by adding the step and progress counter(default is 1 for step) 
+        triggers the stepIndication with progress as arg
+    the stepIndication function =
+        checks the arg, progress, and if it's more than 0, makes the back btn visible
+        else it hides the back button
+        loops over the tab elements and removes the active class
+        loops over the progress elements and adds the hide class 
+            the looping creates the effect of active tab 
+
+- when clicking back :
+    the back function =
+        checks the progress to be exactly 0
+        sets the currentStep by adding the step and progress counter(default is 1 for step) 
+        triggers the stepIndication with progress as arg
+    the stepIndication function = SAME AS NEXT
+        checks the arg, progress, and if it's more than 0, makes the back btn visible
+        else it hides the back button
+        loops over the tab elements and removes the active class
+        loops over the progress elements and adds the hide class 
+            the looping creates the effect of active tab
+
+- on step 2, when toggeling the monthly or yearly switch
+    toggle functionality =
+        adds or removes the class by using toggle 
+    subscription functionality = 
+        userPlanPrice functionlity =
+            called with no arg
+            checks if the plan value is monthly
+            sets many values
+            else it sets the values for yearly 
+
+        totalAddons functionality = 
+            called with no arg
+            checks if the plan value is monthly
+            else it sets the values for yearly 
+            decides the selected adons and gets them based on selected checkboxes 
+
+
+
+
+
