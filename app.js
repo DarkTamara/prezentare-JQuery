@@ -35,7 +35,7 @@ let progress = 0;
 let plan = 'monthly';
 let currentPlan = 'arcade';
 let currentPlanPrice = 9;
-let selectedAddons = 'No add-ons';
+let selectedAddons = [];
 
 ///const info = $('.your-info'); 
 //const backBtn = document.querySelector('.back');
@@ -223,7 +223,7 @@ const totalAddons = () => {
 		}
 	}
 
-	if (selectedAddons.length === 0) selectedAddons = 'No add-ons';
+
 };
 
 // Subscription
@@ -333,9 +333,17 @@ function hideInvalidMessage(currentElement) {
 //Change Summary
 const change = () => {
 	console.log('change');
+
+	progress = 1;
+	stepIndication(progress);
+	$('.dynamic').empty();
+
+
+
 };
 const confirm = () => {
 	console.log('confirm');
+	summaryContainer.empty(); //Alin to add what is displayed after 
 };
 
 const summaryView = () => {
@@ -391,3 +399,7 @@ const summaryView = () => {
 	total.text( `Total (per ${plan === 'monthly' ? 'month' : 'year'})`);
 	totalPrice.text(`+$${currentPlanPrice + totalAddonsPrice}/${plan === 'monthly' ? 'mo' : 'yr'}`);
 };
+
+
+
+
