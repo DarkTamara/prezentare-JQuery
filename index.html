@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Multi-Step Form</title>
 </head>
-
 <body>
-    
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
     <div class="main-screen">
         <div class="container">
             <div class="left-menu-flex">
@@ -167,13 +162,25 @@
                         <div class="summary">
                             <h1>Finishing up</h1>
                             <p class="info-text">Double-check everything looks OK before confirming</p>
-                            <p id="plan-summary" class="info-text">a</p>
+                            <div class="summary-container">
+                                <div class="summary-flex">
+                                    <div>
+                                        <p id="selected-plan">Arcade (Monthly) </p>
+                                        <button onclick="change()" class="change" type="button">Change</button>
+                                    </div>
+                                    <p id="selected-plan-price">$9/mo</p>
+                                </div>
+                            </div>
+                            <div class="summary-total summary-flex">
+                                <p id="total">Total (per month)</p>
+                                <p id="total-price">+12$/mo</p>
+                            </div>
                         </div>
-                        
                     </div>
                     <div class="navigate-btns">
                         <button onclick="back(-1)" class="back" type="button">Go Back</button>
                         <button onclick="next(1)" class="next" type="button">Next Step</button>
+                        <button onclick="confirm()" class="confirm" type="button">Confirm</button>
                     </div>
                 </form>
         </div>
