@@ -49,6 +49,13 @@ const validateInput = $('.validateInput');
 //const invalidText = document.querySelectorAll('.invalid');
 const invalidText = $('.invalid');
 
+//const backBtn = document.querySelector('.back');
+//const backBtn = $('.back');
+//const nextBtn = document.querySelector('.next');
+//const nextBtn = $('.next');
+//const confirmBtn = document.querySelector('.confirm');
+//const confirmBtn = $('.confirm');
+
 // Navigation Progress
 // Price Toggle
 //const monthlySub = document.querySelector('.monthly');
@@ -79,6 +86,16 @@ const checkboxes = $('.checkboxes');
 //const choice = document.querySelectorAll('.pick-choice');
 const choice = $('.pick-choice');
 
+//const summaryContainer = document.querySelector('.summary-container');
+const summaryContainer = $('.summary-container');
+//const selectedPlan = document.getElementById('selected-plan');
+const selectedPlan = $('#selected-plan');
+//const selectedPlanPrice = document.getElementById('selected-plan-price');
+const selectedPlanPrice = $('#selected-plan-price');
+//const total = document.getElementById('total');
+const total = $('#total');
+//const totalPrice = document.getElementById('total-price');
+const totalPrice = $('#total-price');
 
 
 
@@ -98,13 +115,16 @@ function next(step) {
 
 function back(step) {
 	if (progress === 0) return false;
-
+	//if (progress === tab.length - 1) document.querySelectorAll('.dynamic').forEach((elem) => elem.remove());
+	//if (progress === tab.length - 1) $('.dynamic').each((elem) => $('.dynamic').remove(elem));
+	if (progress === tab.length - 1) $('.dynamic').empty();
 	currentStep = step + progress;
 	console.log('back fct. currentStep :' + currentStep);
 	progress = currentStep;
 
 	stepIndication(progress);
 };
+
 
 function stepIndication(n) {
 
@@ -113,6 +133,17 @@ function stepIndication(n) {
 
 	if (n > 0) $('.back').css('visibility','visible');
 	else $('.back').css('visibility','hidden');
+
+	if (n === tab.length - 1) {
+		$('.back').css('visibility','visible');
+		$('.confirm').show();
+		$('.next').hide();
+		summaryView();
+
+	} else {
+		$('.next').show();
+		$('.confirm').hide();
+	}
 
 	// for (let i = 0; i < tab.length; i++) {
 	// 	//tab[i].classList.remove('active');
@@ -226,15 +257,15 @@ const subscription = () => {
 
 	} else {
 		// Step 2 - Select Plan
-		arcadePrice.text( `$${monthly.arcade}/mo`);
-		advancedPrice.text( `$${yearly.advanced}/mo`);
-		proPrice.text( `$${yearly.pro}/mo`);
+		arcadePrice.text( `$${monthly.arcade}/yr`);
+		advancedPrice.text( `$${yearly.advanced}/yr`);
+		proPrice.text( `$${yearly.pro}/yr`);
 		// Step 2 - Select Plan
 
 		// Step 3 - Add-Ons
-		onlinePrice.text( `$${addonYearly.onlineService}/mo`);
-		storagePrice.text( `$${addonYearly.largerStorage}/mo`);
-		customPrice.text( `$${addonYearly.customizableProfile}/mo`);
+		onlinePrice.text( `$${addonYearly.onlineService}/yr`);
+		storagePrice.text( `$${addonYearly.largerStorage}/yr`);
+		customPrice.text( `$${addonYearly.customizableProfile}/yr`);
 		// Step 3 - Add-Ons
 
 		//monthlySub.classList.remove('active-subscription');
@@ -263,7 +294,6 @@ const radioButton = (selectedRadio) => {
 
 // Total Price Add-Ons and Custom Style
 const pickedAddons = () => {
-	console.log('pickedAddons')
 	// Style
 	for (let i = 0; i < checkboxes.length; i++) {
 		if (checkboxes.eq(i)[0].checked) {
@@ -296,3 +326,68 @@ function hideInvalidMessage(currentElement) {
 	currentElement.previousElementSibling.lastElementChild.classList.add('hide-message');
 }
 // Validations
+
+
+
+
+//Change Summary
+const change = () => {
+	console.log('change');
+};
+const confirm = () => {
+	console.log('confirm');
+};
+
+const summaryView = () => {
+	let totalAddonsPrice = 0;
+	selectedPlan.text(`${currentPlan === 'arcade' ? 'Arcade' : currentPlan === 'advanced' ? 'Advanced' : 'Pro'}`);
+	selectedPlanPrice.text(`$${currentPlanPrice}/${plan === 'monthly' ? 'mo' : 'yr'}`);
+
+	if (selectedAddons.length === 0) {
+		selectedAddons = [
+			{
+				addon: 'No Add-ons',
+				price: 0
+			}
+		];
+		for (const elem of selectedAddons) {
+
+			const flexDiv = document.createElement('div');
+			flexDiv.classList.add('summary-flex', 'dynamic');
+			//summaryContainer.append( "<div class='summary-flex dynamic'></div>" );
+
+			const textParagh = document.createElement('p');
+			textParagh.innerText = `${elem.addon}`;
+
+			const textPrice = document.createElement('p');
+			textPrice.innerText = `$${elem.price}`;
+
+			flexDiv.appendChild(textParagh);
+			flexDiv.appendChild(textPrice);
+
+			summaryContainer.append(flexDiv);
+
+		}
+	} else {
+		for (const elem of selectedAddons) {
+			const flexDiv = document.createElement('div');
+			flexDiv.classList.add('summary-flex', 'dynamic');
+
+			const textParagh = document.createElement('p');
+			textParagh.innerText = `${elem.addon === 'onlineService'
+				? 'Online Service'
+				: elem.addon === 'largerStorage' ? 'Larger Storage' : 'Customizable Profile'}`;
+
+			const textPrice = document.createElement('p');
+			textPrice.innerText = `+$${elem.price}/${plan === 'monthly' ? 'mo' : 'yr'}`;
+
+			flexDiv.appendChild(textParagh);
+			flexDiv.appendChild(textPrice);
+
+			summaryContainer.append(flexDiv);
+			totalAddonsPrice += elem.price;
+		}
+	}
+	total.text( `Total (per ${plan === 'monthly' ? 'month' : 'year'})`);
+	totalPrice.text(`+$${currentPlanPrice + totalAddonsPrice}/${plan === 'monthly' ? 'mo' : 'yr'}`);
+};
