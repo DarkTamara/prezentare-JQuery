@@ -263,11 +263,12 @@ const radioButton = (selectedRadio) => {
 
 // Total Price Add-Ons and Custom Style
 const pickedAddons = () => {
+	console.log('pickedAddons')
 	// Style
 	for (let i = 0; i < checkboxes.length; i++) {
-		if (checkboxes[i].checked) {
-			choice[i].classList.add('active-plan');
-		} else choice[i].classList.remove('active-plan');
+		if (checkboxes.eq(i)[0].checked) {
+			choice.eq(i).addClass('active-plan');
+		} else choice.eq(i).removeClass('active-plan');
 	}
 	// Style
 	totalAddons();
