@@ -143,7 +143,9 @@ toggle.on( "click", () => {
 	const result = toggle.toggleClass( 'active' );
 	console.log( result[0]);
 
-	plan = result[0] ? 'yearly' : 'monthly';
+	//plan = result[0] ? 'yearly' : 'monthly';
+	plan = result.hasClass( "active" ) ? 'yearly' : 'monthly';
+
 	subscription();
 
 } );
@@ -276,13 +278,14 @@ const pickedAddons = () => {
 
 // Validations
 const valid = () => {
+	console.log('validate');
 	let valid = true;
 	for (let i = 0; i < validateInput.length; i++) {
-		if (validateInput[i].value.length === 0) {
-			validateInput[i].classList.add('invalid-input');
-			invalidText[i].classList.remove('hide-message');
+		if (validateInput.eq(i)[0].value.length === 0) {
+			validateInput.eq(i).addClass('invalid-input');
+			invalidText.eq(i).removeClass('hide-message');
 			valid = false;
-		} else invalidText[i].classList.add('hide-message');
+		} else invalidText.eq(i).addClass('hide-message');
 	}
 	return valid;
 };
